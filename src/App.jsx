@@ -10,39 +10,42 @@ import OrderSuccess from "./components/OrderSuccess";
 
 function App() {
 
-  const [openCart, setOpenCart] = useState(false);
-  const [openCheckout, setOpenCheckout] = useState(false);
-  const [showErrorPage, setShowErrorPage] = useState(false);
-  const [showSuccessPage, setShowSuccessPage] = useState(false);
+  // const [openCart, setOpenCart] = useState(false);
+  // const [openCheckout, setOpenCheckout] = useState(false);
+  // const [showErrorPage, setShowErrorPage] = useState(false);
+  // const [showSuccessPage, setShowSuccessPage] = useState(false);
+
+  const[showModal, setShowModal] = useState('')
 
   return (
     <>
       <CartProvider>
-        <Header openCart={() => setOpenCart(true)}
-          showError={() => setShowErrorPage(true)} />
-        <Meals />
-        <Modal open={openCart}>
-          <Cart closeCart={() => setOpenCart(false)} openCheckout={() => {
-            setOpenCart(false)
-            setOpenCheckout(true)
+        <Header openCart={() => setShowModal('cart')}
+          showError={() => setShowModal('error')} />
+        <Meals showError={()=>setShowModal('error')}/>
+        <Modal open={showModal==='cart'}>
+          <Cart closeCart={() => setShowModal('')} 
+          openCheckout={() => {
+            // setOpenCart(false)
+            setShowModal('checkout')
           }} />
         </Modal>
-        <Modal open={openCheckout}>
-          <Checkout closeCheckout={setOpenCheckout}
+        <Modal open={showModal==='checkout'}>
+          <Checkout closeCheckout={()=>setShowModal('')}
             showErrorPage={() => {
-              setOpenCheckout(false)
-              setShowErrorPage(true)
+              // setOpenCheckout(false)
+              setShowModal('error')
             }}
             showSuccessPage={() => {
-              setOpenCheckout(false)
-              setShowSuccessPage(true)
+              // setOpenCheckout(false)
+              setShowModal('success')
             }} />
         </Modal>
       </CartProvider>
-      <Modal open={showErrorPage}>
+      <Modal open={showModal==='error'}>
         <ErrorPage />
       </Modal>
-      <Modal open={showSuccessPage}>
+      <Modal open={showModal==='success'}>
         <OrderSuccess />
       </Modal>
     </>

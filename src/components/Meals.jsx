@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from "react"
 import { getMeals } from "../http"
 import MealItem from "./MealItem"
-import {CartContext} from "./CartProvider"
+import { CartContext } from "./CartProvider"
 
-export default function Meals({showError}) {
+export default function Meals({ showError }) {
 
     const [isFetching, setIsFetching] = useState('')
     const [meals, setMeals] = useState([])
@@ -18,8 +18,9 @@ export default function Meals({showError}) {
                 setMeals(await getMeals());
                 setIsFetching(false);
             } catch (error) {
-                showError();
                 console.log(error.message)
+                setIsFetching(false);
+                showError();
             }
 
         }
@@ -57,6 +58,10 @@ export default function Meals({showError}) {
                         </li>
                     ))}
                 </ul>
+            }
+            {!isFetching && meals.length === 0 &&
+                <p className="error">..No available meals at the momemt.<br></br>
+                Please try again later</p>
             }
 
         </>

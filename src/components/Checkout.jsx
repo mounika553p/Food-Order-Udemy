@@ -68,7 +68,6 @@ export default function Checkout({ closeCheckout, showErrorPage, showSuccessPage
     async function callPost(body){
         try {
             const response = await createOrder(body);
-            console.log(response.json())
             if (response.ok) {
                 cartItems.clearCart();
                 showSuccessPage();

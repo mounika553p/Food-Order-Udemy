@@ -38,8 +38,8 @@ export const CartProvider = ({ children }) => {
     }
 
     function removeFromCart(id) {
-        const isMoreThanOne = cartItems.find(cartItem => cartItem.count>=1)
-        console.log(isMoreThanOne.count)
+        const isMoreThanOne = cartItems.find(cartItem => cartItem.count>=1 && cartItem.id===id)
+        console.log(isMoreThanOne.count, id, isMoreThanOne)
         if (isMoreThanOne.count>1) {
             setCartItems(
                 (prevCartItems) => (
