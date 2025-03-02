@@ -13,7 +13,7 @@ export default function Header({openCart}) {
                 <img src={logo} alt='Food Logo' />
                 Food Delivery at Door
             </h2>
-            {<button onClick={openCart}>
+            {<button className='text-button' onClick={openCart}>
                 {cartContext.cartItems.length>0 ? `Cart(${cartContext.cartItems.length})` : 'Cart'}
             </button>}
         </header>

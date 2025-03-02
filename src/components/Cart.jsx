@@ -7,7 +7,7 @@ export default function Cart({ closeCart, openCheckout }) {
     // const cartContext = JSON.parse(localStorage.getItem(cartItems));
 
     const total = cartContext.cartItems.reduce((sum, item) => {
-        return sum + (item.price * item.count);
+        return sum + (item.price * item.quantity);
     }, 0)
 
     return (
@@ -18,12 +18,12 @@ export default function Cart({ closeCart, openCheckout }) {
             {cartContext.cartItems.length > 0 && <ul>
                 {cartContext.cartItems.map(cartItem => (
                     <li key={cartItem.id} className="cart-item">
-                        <span>{cartItem.name} - {cartItem.count} X {cartItem.price}</span>
+                        <span>{cartItem.name} - {cartItem.quantity} X {cartItem.price}</span>
                         <span className="cart-item-actions">
                             <button onClick={() => cartContext.removeFromCart(cartItem.id)}>
                                 -
                             </button>
-                            {cartItem.count}
+                            {cartItem.quantity}
                             <button onClick={() => cartContext.addToCart(cartItem.id, cartItem.name, cartItem.price)}>
                                 +
                             </button>
