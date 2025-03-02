@@ -10,11 +10,6 @@ import OrderSuccess from "./components/OrderSuccess";
 
 function App() {
 
-  // const [openCart, setOpenCart] = useState(false);
-  // const [openCheckout, setOpenCheckout] = useState(false);
-  // const [showErrorPage, setShowErrorPage] = useState(false);
-  // const [showSuccessPage, setShowSuccessPage] = useState(false);
-
   const[showModal, setShowModal] = useState('')
 
   return (
