@@ -6,7 +6,7 @@ import { CartContext } from './CartProvider.jsx';
 //useActionState is used to retain the form values when validation fails, instead of clearing the value from input fields
 export default function Checkout({ closeCheckout, showErrorPage, showSuccessPage }) {
 
-    const [formState, formAction] = useActionState(submitOrder, { errors: [] })
+    const [formState, formAction, pending] = useActionState(submitOrder, { errors: [] })
     const cartItems = useContext(CartContext);
 
     async function submitOrder(prevState, formData) {
@@ -123,9 +123,10 @@ export default function Checkout({ closeCheckout, showErrorPage, showSuccessPage
                         ))}
                     </ul>
                 )}
+                {pending && <p className="modal-actions">Submitting order</p>}
                 <span className="modal-actions">
                     <button onClick={closeCheckout} className="close-button">Close</button>
-                    <button type="submit" className="button">Place Order</button>
+                    <button type="submit" disabled={pending} className="button">Place Order</button>
                 </span>
             </form>
         </div>

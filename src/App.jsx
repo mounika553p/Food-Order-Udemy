@@ -38,10 +38,10 @@ function App() {
         </Modal>
       </CartProvider>
       <Modal open={showModal==='error'}>
-        <ErrorPage />
+        <ErrorPage closeError={()=>setShowModal('')}/>
       </Modal>
       <Modal open={showModal==='success'}>
-        <OrderSuccess />
+        <OrderSuccess  closeSuccess={()=>setShowModal('')}/>
       </Modal>
     </>
   );
