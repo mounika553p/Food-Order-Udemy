@@ -7,6 +7,10 @@ export default function Header({openCart}) {
     // if(cartContext.cartItems.length>0){
     // const cartItemsCount = JSON.parse(localStorage.getItem('CartItems')).length;}
 
+    const total = cartContext.cartItems.reduce((sum, item) => {
+        return sum + item.quantity;
+    }, 0)
+
     return (
         <header id="main-header">
             <h2 id='title'>
@@ -14,7 +18,7 @@ export default function Header({openCart}) {
                 Food Delivery at Door
             </h2>
             {<button className='text-button' onClick={openCart}>
-                {cartContext.cartItems.length>0 ? `Cart(${cartContext.cartItems.length})` : 'Cart'}
+                {cartContext.cartItems.length>0 ? `Cart(${total})` : 'Cart'}
             </button>}
         </header>
     )

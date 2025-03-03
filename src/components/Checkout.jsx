@@ -10,11 +10,14 @@ export default function Checkout({ closeCheckout, showErrorPage, showSuccessPage
     const cartItems = useContext(CartContext);
 
     async function submitOrder(prevState, formData) {
+
+        const customerData = Object.fromEntries(formData.entries());
+
         const email = formData.get("email");
-        const postalCode = formData.get("zip");
+        const postalCode = formData.get("postal-code");
         const street = formData.get("street");
         const city = formData.get("city");
-        const fullname = formData.get("fullname")
+        const name = formData.get("name")
 
         let errors = [];
 
@@ -30,19 +33,25 @@ export default function Checkout({ closeCheckout, showErrorPage, showSuccessPage
         if (!isNotEmpty(city) || !hasMinLength(city)) {
             errors.push("Please enter a valid city name")
         }
-        if (!isNotEmpty(fullname) || !hasMinLength(fullname)) {
+        if (!isNotEmpty(name) || !hasMinLength(name)) {
             errors.push("Please enter a full name between 5-25 characters ")
         }
 
+        // const body = {
+        //     order: {
+        //         customer: {
+        //             email: email,
+        //             name: fullname,
+        //             street: street,
+        //             'postal-code': postalCode,
+        //             city: city
+        //         },
+        //         items: [cartItems.cartItems],
+        //     }
+        // }
         const body = {
             order: {
-                customer: {
-                    email: email,
-                    name: fullname,
-                    street: street,
-                    'postal-code': postalCode,
-                    city: city
-                },
+                customer: customerData,
                 items: [cartItems.cartItems],
             }
         }
@@ -86,8 +95,8 @@ export default function Checkout({ closeCheckout, showErrorPage, showSuccessPage
             <h2>Checkout</h2>
             <form action={formAction}>
                 <span className="control">
-                    <label forhtml='fullname'>Full Name </label>
-                    <input name='fullname' defaultValue={formState.enteredValues?.fullname} required></input>
+                    <label forhtml='name'>Full Name </label>
+                    <input name='name' defaultValue={formState.enteredValues?.fullname} required></input>
                 </span>
                 <span className="control">
                     <label forhtml='email'>Email Address</label>
@@ -99,8 +108,8 @@ export default function Checkout({ closeCheckout, showErrorPage, showSuccessPage
                 </span>
                 <span className="control-row">
                     <span className="control">
-                        <label forhtml='zip'>Postal code </label>
-                        <input name='zip' defaultValue={formState.enteredValues?.street} required></input>
+                        <label forhtml='postal-code'>Postal code </label>
+                        <input name='postal-code' defaultValue={formState.enteredValues?.street} required></input>
                     </span>
                     <span className="control">
                         <label forhtml='city'>City </label>

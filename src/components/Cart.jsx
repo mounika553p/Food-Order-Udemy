@@ -10,6 +10,8 @@ export default function Cart({ closeCart, openCheckout }) {
         return sum + (item.price * item.quantity);
     }, 0)
 
+    const disabled =  cartContext.cartItems.length === 0 ? true : false;
+
     return (
         <div className="cart">
             <h2>Your Cart</h2>
@@ -34,7 +36,7 @@ export default function Cart({ closeCart, openCheckout }) {
             <span className="total">Total: {total}</span>
             <span className="modal-actions">
                 <button className="close-button" onClick={closeCart}>Close</button>
-                <button className="button" onClick={openCheckout}>Go to Checkout</button>
+                <button className='button' disabled={disabled} onClick={openCheckout}>Go to Checkout</button>
             </span>
 
         </div>
